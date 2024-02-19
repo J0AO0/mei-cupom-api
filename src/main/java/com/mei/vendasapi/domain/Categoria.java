@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Categoria  implements Serializable {
@@ -22,6 +23,9 @@ public class Categoria  implements Serializable {
     private Integer id;
     
     private String nome;
+    
+    @ManyToOne
+    private Tenant tenant;
 
     public Integer getId() {
         return id;
@@ -39,9 +43,10 @@ public class Categoria  implements Serializable {
         this.nome = nome;
     }
 
-    public Categoria(Integer id, String nome) {
+    public Categoria(Integer id, String nome, Tenant tenant) {
         this.id = id;
         this.nome = nome;
+        this.tenant = tenant;
     }
 
     public Categoria() {

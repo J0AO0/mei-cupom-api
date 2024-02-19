@@ -10,21 +10,28 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Pedido implements Serializable{
-    @Id
+
+	private static final long serialVersionUID = 1L;
+	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     private Cliente cliente;
+    
+    @ManyToOne
+    private Tenant tenant;
+    
     public Integer getId() {
         return id;
     }
     public Pedido() {
         super();
     }
-    public Pedido(Integer id, Cliente cliente) {
+    public Pedido(Integer id, Cliente cliente, Tenant tenant) {
         super();
         this.id = id;
         this.cliente = cliente;
+        this.tenant = tenant;
     }
     public void setId(Integer id) {
         this.id = id;
@@ -35,4 +42,11 @@ public class Pedido implements Serializable{
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+	public Tenant getTenant() {
+		return tenant;
+	}
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
+	}
+    
 }

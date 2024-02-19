@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @Entity
 public class Produto implements Serializable {
 
-    public static final Long seralVersionUID = 123456L;
+
+	public static final Long seralVersionUID = 123456L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +32,8 @@ public class Produto implements Serializable {
     
     private String status;
     
-    //TODO
-    //private Tenant tenant;
+    @ManyToOne
+    private Tenant tenant;
 
 	public Integer getId() {
 		return id;
@@ -81,8 +82,18 @@ public class Produto implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+	
+	public Tenant getTenant() {
+		return tenant;
+	}
 
-	public Produto(Integer id, String name, Categoria categoria, Integer preço, String descricao, String status) {
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
+	}
+
+	public Produto(Integer id, String name, Categoria categoria, Integer preço, String descricao, String status, Tenant tenant) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -90,6 +101,7 @@ public class Produto implements Serializable {
 		this.preço = preço;
 		this.descricao = descricao;
 		this.status = status;
+		this.tenant = tenant;
 	}
 
 	public Produto() {
