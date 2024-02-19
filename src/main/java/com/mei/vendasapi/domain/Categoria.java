@@ -12,53 +12,80 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * 
+ */
+/**
+ * 
+ */
 @Entity
-public class Categoria  implements Serializable {
+public class Categoria implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
-    
-    private String nome;
-    
-    @ManyToOne
-    private Tenant tenant;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	private String nome;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	private Boolean status = Boolean.TRUE;
 
-    public String getNome() {
-        return nome;
-    }
+	@ManyToOne
+	private Tenant tenant;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Categoria(Integer id, String nome, Tenant tenant) {
-        this.id = id;
-        this.nome = nome;
-        this.tenant = tenant;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Categoria() {
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public Categoria(CategoriaDTO obj){
-        this.id = obj.getId();
-        this.nome = obj.getNome();
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public Categoria(CategoriaNewDTO obj){
-        this.id = obj.getId();
-        this.nome = obj.getNome();
-    }
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Tenant getTenant() {
+		return tenant;
+	}
+
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
+	}
+
+	
+	public Categoria(Integer id, String nome, Boolean status, Tenant tenant) {
+		this.id = id;
+		this.nome = nome;
+		this.status = status;
+		this.tenant = tenant;
+	}
+
+	public Categoria() {
+	}
+
+	public Categoria(CategoriaDTO obj) {
+		this.id = obj.getId();
+		this.nome = obj.getNome();
+		this.status = obj.getStatus();
+	}
+
+	public Categoria(CategoriaNewDTO obj) {
+		this.id = obj.getId();
+		this.nome = obj.getNome();
+	}
 }

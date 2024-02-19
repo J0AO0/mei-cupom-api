@@ -15,4 +15,6 @@ public interface CategoriaRepository extends JpaRepository <Categoria, Integer> 
     @Query(value = "SELECT * FROM categoria where id = ?", nativeQuery = true)
     Categoria findPorId(Integer id);
 
+	List<Categoria> buscarTodasCategorias();
+
 }
