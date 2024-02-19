@@ -1,5 +1,10 @@
 package com.mei.vendasapi.domain;
 
+import com.mei.vendasapi.domain.dto.ClienteDTO;
+import com.mei.vendasapi.domain.dto.ClienteNewDTO;
+import com.mei.vendasapi.domain.dto.EmpresaDTO;
+import com.mei.vendasapi.domain.dto.EmpresaNewDTO;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -241,5 +246,45 @@ public class Empresa implements Serializable {
                 + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", nomecontato="
                 + nomecontato + ", telefone=" + telefone + ", whats=" + whats + ", email=" + email + ", status="
                 + status + "]";
+    }
+
+    public Empresa(EmpresaDTO obj){
+        this.id = obj.getId();
+        this.cidade = obj.getCidade();
+        this.razaosocial = obj.getRazaosocial();
+        this.cpfoucnpj = obj.getCpfoucnpj();
+        this.naturezapessoa = obj.getNaturezapessoa();
+        this.uf = obj.getUf();
+        this.valor = obj.getValor();
+        this.cep = obj.getCep();
+        this.logradouro = obj.getLogradouro();
+        this.bairro = obj.getBairro();
+        this.telefone = obj.getTelefone();
+        this.email = obj.getEmail();
+        this.status = obj.getStatus();
+        this.whats = obj.getWhats();
+        this.nomecontato = obj.getNomecontato();
+        this.numero = obj.getNumero();
+        this.complemento = obj.getComplemento();
+    }
+
+    public Empresa(EmpresaNewDTO obj){
+        this.id = obj.getId();
+        this.cidade = obj.getCidade();
+        this.razaosocial = obj.getRazaosocial();
+        this.cpfoucnpj = obj.getCpfoucnpj();
+        this.naturezapessoa = obj.getNaturezapessoa();
+        this.uf = obj.getUf();
+        this.valor = obj.getValor();
+        this.cep = obj.getCep();
+        this.logradouro = obj.getLogradouro();
+        this.bairro = obj.getBairro();
+        this.telefone = obj.getTelefone();
+        this.email = obj.getEmail();
+        this.status = obj.getStatus();
+        this.whats = obj.getWhats();
+        this.nomecontato = obj.getNomecontato();
+        this.numero = obj.getNumero();
+        this.complemento = obj.getComplemento();
     }
 }

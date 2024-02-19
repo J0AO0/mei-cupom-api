@@ -1,5 +1,10 @@
 package com.mei.vendasapi.domain;
 
+import com.mei.vendasapi.domain.dto.ClienteDTO;
+import com.mei.vendasapi.domain.dto.ClienteNewDTO;
+import com.mei.vendasapi.domain.dto.ItemDTO;
+import com.mei.vendasapi.domain.dto.ItemNewDTO;
+
 import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
@@ -52,6 +57,18 @@ public class Item implements Serializable{
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
 	}
+
+    public Item(ItemDTO obj){
+        this.id = obj.getId();
+        this.quantidade = obj.getQuantidade();
+        this.status = obj.getStatus();
+    }
+
+    public Item(ItemNewDTO obj){
+        this.id = obj.getId();
+        this.quantidade = obj.getQuantidade();
+        this.status = obj.getStatus();
+    }
     
     
 }
