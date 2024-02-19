@@ -21,11 +21,12 @@ public class Item implements Serializable{
     public Item() {
         super();
     }
-    public Item(ProdutoPedidoPK id, Integer quantidade, Boolean status) {
+    public Item(ProdutoPedidoPK id, Integer quantidade, Boolean status, Tenant tenant) {
         super();
         this.id = id;
         this.quantidade = quantidade;
         this.status = status;
+        this.tenant = tenant;
     }
     public ProdutoPedidoPK getId() {
         return id;

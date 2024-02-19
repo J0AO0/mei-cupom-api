@@ -177,9 +177,19 @@ public class Empresa implements Serializable {
         this.status = status;
     }
 
+    @ManyToOne
+    private Tenant tenant;
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
+    }
+
     public Empresa(Integer id, String cidade, String razaosocial, String cpfoucnpj, String naturezapessoa, String uf,
                    BigDecimal valor, String cep, String logradouro, String numero, String complemento, String bairro,
-                   String nomecontato, String telefone, String whats, String email, Boolean status) {
+                   String nomecontato, String telefone, String whats, String email, Boolean status, Tenant tenant) {
         super();
         this.id = id;
         this.cidade = cidade;
@@ -198,6 +208,7 @@ public class Empresa implements Serializable {
         this.whats = whats;
         this.email = email;
         this.status = status;
+        this.tenant = tenant;
     }
 
     public Empresa() {
