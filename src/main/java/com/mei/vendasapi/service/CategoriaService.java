@@ -4,6 +4,9 @@ import com.mei.vendasapi.domain.Categoria;
 import com.mei.vendasapi.domain.dto.CategoriaDTO;
 import com.mei.vendasapi.domain.dto.CategoriaNewDTO;
 import com.mei.vendasapi.repository.CategoriaRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,5 +40,11 @@ public class CategoriaService {
     public void delete (Integer id) {
         repo.deleteById(id);
     }
+
+	public List<Categoria> lista() {
+		
+		List<Categoria> buscarTodas = repo.findAllCat();		
+		return buscarTodas;
+	}
 
 }
