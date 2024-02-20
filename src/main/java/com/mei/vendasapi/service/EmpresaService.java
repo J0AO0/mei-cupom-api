@@ -68,7 +68,7 @@ public class EmpresaService {
 
     public List<Empresa> lista() {
 
-        List<Empresa> buscarTodas = repo.findAllCat();
+        List<Empresa> buscarTodas = repo.findAll();
         return buscarTodas;
     }
 

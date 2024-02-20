@@ -49,6 +49,7 @@ public class ProdutoService {
         resEst.setDescricao(obj.getDescricao());
         resEst.setName(obj.getName());
         resEst.setPreco(obj.getPreco());
+        resEst.setQrCode(obj.getQrCode());
         return repo.save(resEst);
     }
 

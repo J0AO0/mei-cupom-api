@@ -6,6 +6,7 @@ import com.mei.vendasapi.domain.dto.ProdutoDTO;
 import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,11 +32,13 @@ public class Produto implements Serializable {
     @ManyToOne
     private Categoria categoria;
     
-    private Integer preco;
+    private BigDecimal preco;
     
     private String descricao;
     
     private Boolean status;
+
+	private String qrCode;
     
     @ManyToOne
     private Tenant tenant;
@@ -64,11 +67,11 @@ public class Produto implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public Integer getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Integer preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 
@@ -87,9 +90,15 @@ public class Produto implements Serializable {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	
-	
-	
+
+	public String getQrCode() {
+		return qrCode;
+	}
+
+	public void setQrCode(String qrCode) {
+		this.qrCode = qrCode;
+	}
+
 	public Tenant getTenant() {
 		return tenant;
 	}
@@ -98,7 +107,7 @@ public class Produto implements Serializable {
 		this.tenant = tenant;
 	}
 
-	public Produto(Integer id, String name, Categoria categoria, Integer preco, String descricao, Boolean status, Tenant tenant) {
+	public Produto(Integer id, String name, Categoria categoria, BigDecimal preco, String descricao, Boolean status, Tenant tenant, String qrCode) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -107,6 +116,7 @@ public class Produto implements Serializable {
 		this.descricao = descricao;
 		this.status = status;
 		this.tenant = tenant;
+		this.qrCode = qrCode;
 	}
 
 	public Produto() {
@@ -120,6 +130,7 @@ public class Produto implements Serializable {
 		this.preco = obj.getPreco();
 		this.descricao = obj.getDescricao();
 		this.status = obj.getStatus();
+		this.qrCode = obj.getQrCode();
 	}
 
 	public Produto(ProdutoNewDTO obj){
@@ -129,6 +140,7 @@ public class Produto implements Serializable {
 		this.preco = obj.getPreco();
 		this.descricao = obj.getDescricao();
 		this.status = obj.getStatus();
+		this.qrCode = obj.getQrCode();
 	}
     
 
