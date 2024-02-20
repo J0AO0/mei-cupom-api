@@ -92,7 +92,6 @@ public class Cliente implements Serializable{
         this.nome = obj.getNome();
         this.telefone = obj.getTelefone();
         this.email = obj.getEmail();
-        this.status = obj.getStatus();
     }
 
     public Cliente(ClienteNewDTO obj){

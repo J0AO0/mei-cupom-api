@@ -49,7 +49,7 @@ public class CategoriaResource {
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Categoria> criarCategoria(@RequestBody CategoriaNewDTO objNewDTO) {
+	public ResponseEntity<Categoria> criarCategoria(@Valid @RequestBody CategoriaNewDTO objNewDTO) {
 	Categoria novoObj = modelMapper.map(objNewDTO, Categoria.class);
 	Categoria objNovo = categoriaService.insert(objNewDTO);
 	

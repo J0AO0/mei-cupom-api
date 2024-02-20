@@ -57,7 +57,7 @@ public class Permissao implements Serializable{
     }
     @Override
     public String toString() {
-        return "Permissao [id=" + id + ", descricao=" + descricao + ", classepermissao=" + classepermissao + "]";
+        return "PermissaoRepository [id=" + id + ", descricao=" + descricao + ", classepermissao=" + classepermissao + "]";
     }
 
 

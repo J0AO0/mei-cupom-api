@@ -37,9 +37,6 @@ public class ProdutoNewDTO {
 		this.categoria = categoria;
 	}
 
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
-	}
 
 	public String getDescricao() {
 		return descricao;
@@ -79,6 +76,9 @@ public class ProdutoNewDTO {
 		this.status = status;
 		this.qrCode = qrCode;
 	}
+
+
+
 
 	public ProdutoNewDTO() {
 	}
