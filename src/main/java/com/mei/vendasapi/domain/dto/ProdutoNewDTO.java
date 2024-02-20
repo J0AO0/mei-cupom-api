@@ -1,8 +1,8 @@
 package com.mei.vendasapi.domain.dto;
 
-import com.mei.vendasapi.domain.Categoria;
-
 import java.math.BigDecimal;
+
+import com.mei.vendasapi.domain.Categoria;
 
 public class ProdutoNewDTO {
 	private Integer id;
@@ -11,7 +11,7 @@ public class ProdutoNewDTO {
 	private BigDecimal preco;
 	private String descricao;
 	private Boolean status = Boolean.TRUE;
-    private String qrCode;
+	private String qrCode;
 
 	public Integer getId() {
 		return id;
@@ -37,9 +37,6 @@ public class ProdutoNewDTO {
 		this.categoria = categoria;
 	}
 
-	public BigDecimal getPreco() {
-		return preco;
-	}
 
 	public String getDescricao() {
 		return descricao;
@@ -57,23 +54,31 @@ public class ProdutoNewDTO {
 		this.status = status;
 	}
 
-    public String getQrCode() {
-        return qrCode;
-    }
+	public String getQrCode() {
+		return qrCode;
+	}
 
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
-    }
+	public void setQrCode(String qrCode) {
+		this.qrCode = qrCode;
+	}
 
-    public ProdutoNewDTO(Integer id, String name, Categoria categoria, BigDecimal preco, String descricao, Boolean status, String qrCode) {
-        this.id = id;
-        this.name = name;
-        this.categoria = categoria;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.status = status;
-        this.qrCode = qrCode;
-    }
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public ProdutoNewDTO(Integer id, String name, Categoria categoria, BigDecimal preco, String descricao,
+			Boolean status, String qrCode) {
+		this.id = id;
+		this.name = name;
+		this.categoria = categoria;
+		this.preco = preco;
+		this.descricao = descricao;
+		this.status = status;
+		this.qrCode = qrCode;
+	}
+
+
+
 
 	public ProdutoNewDTO() {
 	}
