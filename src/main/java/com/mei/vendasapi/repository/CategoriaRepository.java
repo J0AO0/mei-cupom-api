@@ -18,5 +18,7 @@ public interface CategoriaRepository extends JpaRepository <Categoria, Integer> 
     @Query(value = "SELECT c.nome FROM categoria c", nativeQuery = true)
     Categoria findPorNome(String nome);
 
+	Categoria findByNome(String nome);
+
 
 }
