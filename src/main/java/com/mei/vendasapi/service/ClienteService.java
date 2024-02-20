@@ -6,7 +6,10 @@ import com.mei.vendasapi.domain.dto.ClienteDTO;
 import com.mei.vendasapi.domain.dto.ClienteNewDTO;
 import com.mei.vendasapi.repository.ClienteRepository;
 import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,15 +44,16 @@ public class ClienteService {
 
     public Cliente atualiza(ClienteDTO obj) {
         Cliente resEst =  repo.findPorId(obj.getId());
-        resEst.setNome(obj.getNome());
-        resEst.setEmail(obj.getEmail());
-        resEst.setTelefone(obj.getTelefone());
-        resEst.setStatus(obj.getStatus());
+        BeanUtils.copyProperties(obj, resEst, "id");
         return repo.save(resEst);
     }
 
     public void delete (Integer id) {
-        repo.deleteById(id);
+    	try {
+    		repo.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new EntidadeNaoEncontradaExcepition(String.format("Cliente Nao Encontrado", id));
+		}
     }
 
     public List<Cliente> lista() {
@@ -60,7 +64,7 @@ public class ClienteService {
 
     public Cliente buscarOuFalhar(int id) {
         return repo.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Categoria  não encontrada", id)));
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Cliente  não encontrada", id)));
     }
 
     @Transactional

@@ -5,7 +5,6 @@ public class ClienteDTO {
     private String nome;
     private String telefone;
     private String email;
-    private Boolean status = Boolean.TRUE;
 
     public Integer getId() {
         return id;
@@ -39,19 +38,10 @@ public class ClienteDTO {
         this.email = email;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public ClienteDTO(Integer id, String nome, String telefone, String email, Boolean status) {
+    public ClienteDTO(Integer id, String nome, String telefone, String email) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
-        this.status = status;
     }
 }

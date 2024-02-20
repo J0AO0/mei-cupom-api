@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.mei.vendasapi.domain.dto.CategoriaDTO;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mei.vendasapi.domain.Categoria;
+import com.mei.vendasapi.domain.dto.CategoriaDTO;
 import com.mei.vendasapi.domain.dto.CategoriaNewDTO;
 import com.mei.vendasapi.repository.CategoriaRepository;
 import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
@@ -27,13 +27,17 @@ public class CategoriaService {
 
     public Categoria findPorId(Integer id) {
         Categoria cat = repo.findPorId(id);
+        
+        
         return cat;
     }
 
+    @Transactional
     public Categoria insert(CategoriaNewDTO obj){
-//        TODO
-//        ID NÃO ESTA COM AUTO IMPLEMENT NA HORA DE FAZER O POST
-         Categoria resEst = new Categoria(obj);
+    	obj.setId(null);
+         Categoria resEst = new Categoria();
+         resEst.setNome(obj.getNome());
+         resEst.setStatus(obj.getStatus());
          return repo.save(resEst);
     }
 
@@ -45,7 +49,12 @@ public class CategoriaService {
     }
 
     public void delete (Integer id) {
-        repo.deleteById(id);
+    	try {
+    		repo.deleteById(id);
+			
+		} catch (EmptyResultDataAccessException e) {
+			throw new EntidadeNaoEncontradaExcepition(String.format("Categoria não encontrada", id));
+		}
     }
 
 	public List<Categoria> lista() {
