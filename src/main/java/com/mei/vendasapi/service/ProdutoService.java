@@ -37,7 +37,7 @@ public class ProdutoService {
         return repo.save(resEst);
     }
 
-    public Produto atualiza(Produto obj) {
+    public Produto atualiza(ProdutoDTO obj) {
         Produto resEst =  repo.findPorId(obj.getId());
         resEst.setCategoria(obj.getCategoria());
         resEst.setDescricao(obj.getDescricao());

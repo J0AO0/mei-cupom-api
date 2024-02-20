@@ -20,6 +20,8 @@ import com.mei.vendasapi.domain.dto.CategoriaDTO;
 import com.mei.vendasapi.domain.dto.CategoriaNewDTO;
 import com.mei.vendasapi.service.CategoriaService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
@@ -56,18 +58,16 @@ public class CategoriaResource {
 	
 	return ResponseEntity.created(uri).body(novoObj);
 	}
-	
-	
-	@RequestMapping(value ="/{id} ", method = RequestMethod.PUT)
-	public ResponseEntity<Categoria> atualizarCategoria(@PathVariable Integer id,@RequestBody CategoriaDTO objDTO) {
-		objDTO.setId(null);
-		Categoria objNovo = new Categoria(objDTO);
-		Categoria atividadeAtualizado =  categoriaService.atualiza(objNovo);
-		
+
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Categoria> update(@Valid @RequestBody CategoriaDTO obj, @PathVariable Integer id) {
+		obj.setId(id);
+		Categoria obj1 = categoriaService.atualiza(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
-				path("/{id}").buildAndExpand(atividadeAtualizado.getId()).toUri();
-		
-		return ResponseEntity.created(uri).body(atividadeAtualizado);
+				path("/{id}").buildAndExpand(obj1.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj1);
+
 	}
 	
 	@RequestMapping(value ="/{id}/status",method = RequestMethod.PUT)

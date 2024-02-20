@@ -37,7 +37,7 @@ public class CategoriaService {
          return repo.save(resEst);
     }
 
-    public Categoria atualiza(Categoria obj) {
+    public Categoria atualiza(CategoriaDTO obj) {
         Categoria resEst =  repo.findPorId(obj.getId());
         resEst.setNome(obj.getNome());
         resEst.setStatus(obj.getStatus());

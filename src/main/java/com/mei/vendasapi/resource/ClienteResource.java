@@ -1,6 +1,8 @@
 package com.mei.vendasapi.resource;
 
 import com.mei.vendasapi.domain.Cliente;
+import com.mei.vendasapi.domain.Cliente;
+import com.mei.vendasapi.domain.dto.ClienteDTO;
 import com.mei.vendasapi.domain.dto.ClienteDTO;
 import com.mei.vendasapi.domain.dto.ClienteNewDTO;
 import com.mei.vendasapi.service.ClienteService;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -52,18 +55,14 @@ public class ClienteResource {
     }
 
 
-    @RequestMapping(value = "/{id} " , method = RequestMethod.PUT)
-//	TODO
-//	ERRO NO MÉTODO PUT, ATUALIZAR DE ACORDO COM O DTO
-    public ResponseEntity<Cliente> atualizarCliente(@PathVariable Integer id,@RequestBody ClienteDTO objDTO) {
-        objDTO.setId(null);
-        Cliente objNovo = new Cliente(objDTO);
-        Cliente atividadeAtualizado =  clienteService.atualiza(objNovo);
-
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Cliente> update(@Valid @RequestBody ClienteDTO obj, @PathVariable Integer id) {
+        obj.setId(id);
+        Cliente obj1 = clienteService.atualiza(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
-                path("/{id}").buildAndExpand(atividadeAtualizado.getId()).toUri();
+                path("/{id}").buildAndExpand(obj1.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj1);
 
-        return ResponseEntity.created(uri).body(atividadeAtualizado);
     }
 
     @RequestMapping(value="/{id}/status",method = RequestMethod.PUT)

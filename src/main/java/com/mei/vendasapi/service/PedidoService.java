@@ -36,7 +36,7 @@ public class PedidoService {
         return repo.save(resEst);
     }
 
-    public Pedido atualiza(Pedido obj) {
+    public Pedido atualiza(PedidoDTO obj) {
         Pedido resEst =  repo.findPorId(obj.getId());
         resEst.setCliente(obj.getCliente());
         return repo.save(resEst);

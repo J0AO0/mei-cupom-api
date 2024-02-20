@@ -34,7 +34,7 @@ public class ClienteService {
         return repo.save(resEst);
     }
 
-    public Cliente atualiza(Cliente obj) {
+    public Cliente atualiza(ClienteDTO obj) {
         Cliente resEst =  repo.findPorId(obj.getId());
         resEst.setNome(obj.getNome());
         resEst.setEmail(obj.getEmail());

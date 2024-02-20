@@ -40,7 +40,7 @@ public class EmpresaService {
         return repo.save(resEst);
     }
 
-    public Empresa atualiza(Empresa obj) {
+    public Empresa atualiza(EmpresaDTO obj) {
         Empresa resEst =  repo.findPorId(obj.getId());
         resEst.setEmail(obj.getEmail());
         resEst.setTelefone(obj.getTelefone());
