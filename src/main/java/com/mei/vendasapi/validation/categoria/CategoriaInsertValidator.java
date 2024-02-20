@@ -26,7 +26,7 @@ public class CategoriaInsertValidator implements ConstraintValidator<CategoriaIn
     public boolean isValid(CategoriaNewDTO value, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        Categoria cat = repo.findPorNome(value.getNome());
+        Categoria cat = repo.findByNome(value.getNome());
         if (cat != null) {
             list.add(new FieldMessage("nome", " Categoria já existente "));
         }

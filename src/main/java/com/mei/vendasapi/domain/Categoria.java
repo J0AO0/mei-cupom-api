@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 
 /**
  * 
@@ -84,7 +85,7 @@ public class Categoria implements Serializable {
 		this.status = obj.getStatus();
 	}
 
-	public Categoria(CategoriaNewDTO obj) {
+	public Categoria(@Valid CategoriaNewDTO obj) {
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 	}
