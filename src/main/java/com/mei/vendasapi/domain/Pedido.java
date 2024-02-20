@@ -1,5 +1,10 @@
 package com.mei.vendasapi.domain;
 
+import com.mei.vendasapi.domain.dto.ItemDTO;
+import com.mei.vendasapi.domain.dto.ItemNewDTO;
+import com.mei.vendasapi.domain.dto.PedidoDTO;
+import com.mei.vendasapi.domain.dto.PedidoNewDTO;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -48,5 +53,15 @@ public class Pedido implements Serializable{
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
 	}
+
+    public Pedido(PedidoDTO obj){
+        this.id = obj.getId();
+        this.cliente = obj.getCliente();
+    }
+
+    public Pedido(PedidoNewDTO obj){
+        this.id = obj.getId();
+        this.cliente = obj.getCliente();
+    }
     
 }

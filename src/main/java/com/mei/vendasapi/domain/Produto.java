@@ -1,5 +1,10 @@
 package com.mei.vendasapi.domain;
 
+import com.mei.vendasapi.domain.dto.PedidoDTO;
+import com.mei.vendasapi.domain.dto.PedidoNewDTO;
+import com.mei.vendasapi.domain.dto.ProdutoDTO;
+import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -26,7 +31,7 @@ public class Produto implements Serializable {
     @ManyToOne
     private Categoria categoria;
     
-    private Integer preço;
+    private Integer preco;
     
     private String descricao;
     
@@ -59,12 +64,12 @@ public class Produto implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public Integer getPreço() {
-		return preço;
+	public Integer getPreco() {
+		return preco;
 	}
 
-	public void setPreço(Integer preço) {
-		this.preço = preço;
+	public void setPreco(Integer preco) {
+		this.preco = preco;
 	}
 
 	public String getDescricao() {
@@ -93,12 +98,12 @@ public class Produto implements Serializable {
 		this.tenant = tenant;
 	}
 
-	public Produto(Integer id, String name, Categoria categoria, Integer preço, String descricao, String status, Tenant tenant) {
+	public Produto(Integer id, String name, Categoria categoria, Integer preco, String descricao, String status, Tenant tenant) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.categoria = categoria;
-		this.preço = preço;
+		this.preco = preco;
 		this.descricao = descricao;
 		this.status = status;
 		this.tenant = tenant;
@@ -106,6 +111,24 @@ public class Produto implements Serializable {
 
 	public Produto() {
 		super();
+	}
+
+	public Produto(ProdutoDTO obj){
+		this.id = obj.getId();
+		this.name = obj.getName();
+		this.categoria = obj.getCategoria();
+		this.preco = obj.getPreco();
+		this.descricao = obj.getDescricao();
+		this.status = obj.getStatus();
+	}
+
+	public Produto(ProdutoNewDTO obj){
+		this.id = obj.getId();
+		this.name = obj.getName();
+		this.categoria = obj.getCategoria();
+		this.preco = obj.getPreco();
+		this.descricao = obj.getDescricao();
+		this.status = obj.getStatus();
 	}
     
 
