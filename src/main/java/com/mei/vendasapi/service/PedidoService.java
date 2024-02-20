@@ -1,5 +1,6 @@
 package com.mei.vendasapi.service;
 
+import com.mei.vendasapi.domain.Pedido;
 import com.mei.vendasapi.domain.Item;
 import com.mei.vendasapi.domain.Pedido;
 import com.mei.vendasapi.domain.dto.ItemNewDTO;
@@ -7,11 +8,13 @@ import com.mei.vendasapi.domain.dto.PedidoDTO;
 import com.mei.vendasapi.domain.dto.PedidoNewDTO;
 import com.mei.vendasapi.repository.ItemRepository;
 import com.mei.vendasapi.repository.PedidoRepository;
+import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -33,7 +36,7 @@ public class PedidoService {
         return repo.save(resEst);
     }
 
-    public Pedido atualiza(PedidoDTO obj) {
+    public Pedido atualiza(Pedido obj) {
         Pedido resEst =  repo.findPorId(obj.getId());
         resEst.setCliente(obj.getCliente());
         return repo.save(resEst);
@@ -47,5 +50,10 @@ public class PedidoService {
 
         List<Pedido> buscarTodas = repo.findAllCat();
         return buscarTodas;
+    }
+
+    public Pedido buscarOuFalhar(int id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Pedido  não encontrado", id)));
     }
 }

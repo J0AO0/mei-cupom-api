@@ -35,7 +35,7 @@ public class Produto implements Serializable {
     
     private String descricao;
     
-    private String status;
+    private Boolean status;
     
     @ManyToOne
     private Tenant tenant;
@@ -80,11 +80,11 @@ public class Produto implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 	
@@ -98,7 +98,7 @@ public class Produto implements Serializable {
 		this.tenant = tenant;
 	}
 
-	public Produto(Integer id, String name, Categoria categoria, Integer preco, String descricao, String status, Tenant tenant) {
+	public Produto(Integer id, String name, Categoria categoria, Integer preco, String descricao, Boolean status, Tenant tenant) {
 		super();
 		this.id = id;
 		this.name = name;

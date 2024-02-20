@@ -1,6 +1,7 @@
 package com.mei.vendasapi.service;
 
 
+import com.mei.vendasapi.domain.Empresa;
 import com.mei.vendasapi.domain.Cliente;
 import com.mei.vendasapi.domain.Empresa;
 import com.mei.vendasapi.domain.dto.ClienteDTO;
@@ -9,12 +10,14 @@ import com.mei.vendasapi.domain.dto.EmpresaDTO;
 import com.mei.vendasapi.domain.dto.EmpresaNewDTO;
 import com.mei.vendasapi.repository.ClienteRepository;
 import com.mei.vendasapi.repository.EmpresaRepository;
+import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -37,7 +40,7 @@ public class EmpresaService {
         return repo.save(resEst);
     }
 
-    public Empresa atualiza(EmpresaDTO obj) {
+    public Empresa atualiza(Empresa obj) {
         Empresa resEst =  repo.findPorId(obj.getId());
         resEst.setEmail(obj.getEmail());
         resEst.setTelefone(obj.getTelefone());
@@ -67,5 +70,17 @@ public class EmpresaService {
 
         List<Empresa> buscarTodas = repo.findAllCat();
         return buscarTodas;
+    }
+
+    public Empresa buscarOuFalhar(int id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Empresa  não encontrada", id)));
+    }
+
+    @Transactional
+    public void status(Boolean obj, int id) {
+        Empresa empresa = buscarOuFalhar(id);
+        empresa.setStatus(obj);
+
     }
 }

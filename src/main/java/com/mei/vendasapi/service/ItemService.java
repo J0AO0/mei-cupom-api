@@ -1,5 +1,6 @@
 package com.mei.vendasapi.service;
 
+import com.mei.vendasapi.domain.Item;
 import com.mei.vendasapi.domain.Cliente;
 import com.mei.vendasapi.domain.Item;
 import com.mei.vendasapi.domain.dto.ClienteDTO;
@@ -8,11 +9,13 @@ import com.mei.vendasapi.domain.dto.ItemDTO;
 import com.mei.vendasapi.domain.dto.ItemNewDTO;
 import com.mei.vendasapi.repository.ClienteRepository;
 import com.mei.vendasapi.repository.ItemRepository;
+import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -49,5 +52,17 @@ public class ItemService {
 
         List<Item> buscarTodas = repo.findAllCat();
         return buscarTodas;
+    }
+
+    public Item buscarOuFalhar(int id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Item não encontrado", id)));
+    }
+
+    @Transactional
+    public void status(Boolean obj, int id) {
+        Item item = buscarOuFalhar(id);
+        item.setStatus(obj);
+
     }
 }

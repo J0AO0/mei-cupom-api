@@ -5,11 +5,13 @@ import com.mei.vendasapi.domain.Cliente;
 import com.mei.vendasapi.domain.dto.ClienteDTO;
 import com.mei.vendasapi.domain.dto.ClienteNewDTO;
 import com.mei.vendasapi.repository.ClienteRepository;
+import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -32,7 +34,7 @@ public class ClienteService {
         return repo.save(resEst);
     }
 
-    public Cliente atualiza(ClienteDTO obj) {
+    public Cliente atualiza(Cliente obj) {
         Cliente resEst =  repo.findPorId(obj.getId());
         resEst.setNome(obj.getNome());
         resEst.setEmail(obj.getEmail());
@@ -49,6 +51,18 @@ public class ClienteService {
 
         List<Cliente> buscarTodas = repo.findAll();
         return buscarTodas;
+    }
+
+    public Cliente buscarOuFalhar(int id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Categoria  não encontrada", id)));
+    }
+
+    @Transactional
+    public void status(Boolean obj, int id) {
+        Cliente cliente = buscarOuFalhar(id);
+        cliente.setStatus(obj);
+
     }
 
 }

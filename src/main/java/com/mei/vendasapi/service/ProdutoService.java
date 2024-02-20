@@ -1,5 +1,6 @@
 package com.mei.vendasapi.service;
 
+import com.mei.vendasapi.domain.Categoria;
 import com.mei.vendasapi.domain.Pedido;
 import com.mei.vendasapi.domain.Produto;
 import com.mei.vendasapi.domain.dto.PedidoDTO;
@@ -8,11 +9,13 @@ import com.mei.vendasapi.domain.dto.ProdutoDTO;
 import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
 import com.mei.vendasapi.repository.PedidoRepository;
 import com.mei.vendasapi.repository.ProdutoRepository;
+import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -34,7 +37,7 @@ public class ProdutoService {
         return repo.save(resEst);
     }
 
-    public Produto atualiza(ProdutoDTO obj) {
+    public Produto atualiza(Produto obj) {
         Produto resEst =  repo.findPorId(obj.getId());
         resEst.setCategoria(obj.getCategoria());
         resEst.setDescricao(obj.getDescricao());
@@ -51,5 +54,17 @@ public class ProdutoService {
 
         List<Produto> buscarTodas = repo.findAllCat();
         return buscarTodas;
+    }
+
+    public Produto buscarOuFalhar(int id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Produto  não encontrada", id)));
+    }
+
+    @Transactional
+    public void status(Boolean obj, int id) {
+        Produto produto = buscarOuFalhar(id);
+        produto.setStatus(obj);
+
     }
 }

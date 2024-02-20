@@ -8,7 +8,7 @@ public class ProdutoNewDTO {
     private Categoria categoria;
     private Integer preco;
     private String descricao;
-    private String status;
+    private Boolean status;
 
     public Integer getId() {
         return id;
@@ -50,15 +50,15 @@ public class ProdutoNewDTO {
         this.descricao = descricao;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
-    public ProdutoNewDTO(Integer id, String name, Categoria categoria, Integer preco, String descricao, String status) {
+    public ProdutoNewDTO(Integer id, String name, Categoria categoria, Integer preco, String descricao, Boolean status) {
         this.id = id;
         this.name = name;
         this.categoria = categoria;

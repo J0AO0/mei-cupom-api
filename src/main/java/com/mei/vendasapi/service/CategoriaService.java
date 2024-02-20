@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.mei.vendasapi.domain.dto.CategoriaDTO;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,8 @@ public class CategoriaService {
     }
 
     public Categoria insert(CategoriaNewDTO obj){
+//        TODO
+//        ID NÃO ESTA COM AUTO IMPLEMENT NA HORA DE FAZER O POST
          Categoria resEst = new Categoria(obj);
          return repo.save(resEst);
     }
@@ -61,5 +65,4 @@ public class CategoriaService {
 	categoria.setStatus(obj);
 		
 	}
-
 }

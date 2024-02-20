@@ -58,7 +58,7 @@ public class CategoriaResource {
 	}
 	
 	
-	@RequestMapping(value = "/{id} " , method = RequestMethod.PUT)
+	@RequestMapping(value ="/{id} ", method = RequestMethod.PUT)
 	public ResponseEntity<Categoria> atualizarCategoria(@PathVariable Integer id,@RequestBody CategoriaDTO objDTO) {
 		objDTO.setId(null);
 		Categoria objNovo = new Categoria(objDTO);
@@ -70,7 +70,7 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).body(atividadeAtualizado);
 	}
 	
-	@RequestMapping(value="/{id}/status",method = RequestMethod.PUT)
+	@RequestMapping(value ="/{id}/status",method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
     public void inativar(@RequestBody Boolean obj,@PathVariable int id)	{
 		categoriaService.status(obj,id);
