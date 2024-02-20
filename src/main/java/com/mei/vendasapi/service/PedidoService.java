@@ -1,21 +1,20 @@
 package com.mei.vendasapi.service;
 
-import com.mei.vendasapi.domain.Pedido;
-import com.mei.vendasapi.domain.Item;
-import com.mei.vendasapi.domain.Pedido;
-import com.mei.vendasapi.domain.dto.ItemNewDTO;
-import com.mei.vendasapi.domain.dto.PedidoDTO;
-import com.mei.vendasapi.domain.dto.PedidoNewDTO;
-import com.mei.vendasapi.repository.ItemRepository;
-import com.mei.vendasapi.repository.PedidoRepository;
-import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
+import com.mei.vendasapi.domain.Cliente;
+import com.mei.vendasapi.domain.Pedido;
+import com.mei.vendasapi.domain.dto.PedidoDTO;
+import com.mei.vendasapi.domain.dto.PedidoNewDTO;
+import com.mei.vendasapi.repository.PedidoRepository;
+import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 
 @Service
 public class PedidoService {
@@ -30,9 +29,13 @@ public class PedidoService {
         Pedido cat = repo.findPorId(id);
         return cat;
     }
-
+    
+    @Transactional
     public Pedido insert(PedidoNewDTO obj){
-        Pedido resEst = new Pedido(obj);
+    	obj.setId(null);
+        Pedido resEst = new Pedido();
+        Cliente c = obj.getCliente();
+        resEst.setCliente(c);
         return repo.save(resEst);
     }
 

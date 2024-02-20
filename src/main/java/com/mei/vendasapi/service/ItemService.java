@@ -31,9 +31,14 @@ public class ItemService {
         Item cat = repo.findPorId(id);
         return cat;
     }
-
+    
+    @Transactional
     public Item insert(ItemNewDTO obj){
+    	obj.setId(null);
         Item resEst = new Item(obj);
+        resEst.setQuantidade(obj.getQuantidade());
+        resEst.setStatus(obj.getStatus());
+        
         return repo.save(resEst);
     }
 

@@ -1,22 +1,20 @@
 package com.mei.vendasapi.service;
 
-import com.mei.vendasapi.domain.Categoria;
-import com.mei.vendasapi.domain.Pedido;
-import com.mei.vendasapi.domain.Produto;
-import com.mei.vendasapi.domain.dto.PedidoDTO;
-import com.mei.vendasapi.domain.dto.PedidoNewDTO;
-import com.mei.vendasapi.domain.dto.ProdutoDTO;
-import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
-import com.mei.vendasapi.repository.PedidoRepository;
-import com.mei.vendasapi.repository.ProdutoRepository;
-import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
+import com.mei.vendasapi.domain.Categoria;
+import com.mei.vendasapi.domain.Produto;
+import com.mei.vendasapi.domain.dto.ProdutoDTO;
+import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
+import com.mei.vendasapi.repository.ProdutoRepository;
+import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 
 @Service
 public class ProdutoService {
@@ -31,9 +29,17 @@ public class ProdutoService {
         Produto cat = repo.findPorId(id);
         return cat;
     }
-
+    
+    @Transactional
     public Produto insert(ProdutoNewDTO obj){
-        Produto resEst = new Produto(obj);
+    	obj.setId(null);
+        Produto resEst = new Produto();
+        resEst.setName(obj.getName());
+        resEst.setDescricao(obj.getDescricao());
+        resEst.setPreco(obj.getPreco());
+        Categoria c = obj.getCategoria();
+        resEst.setCategoria(c);
+        resEst.setStatus(obj.getStatus());
         return repo.save(resEst);
     }
 

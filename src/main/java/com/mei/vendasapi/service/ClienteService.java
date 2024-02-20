@@ -28,9 +28,14 @@ public class ClienteService {
         Cliente cat = repo.findPorId(id);
         return cat;
     }
-
+    
+    @Transactional
     public Cliente insert(ClienteNewDTO obj){
-        Cliente resEst = new Cliente(obj);
+    	obj.setId(null);
+        Cliente resEst = new Cliente();
+        resEst.setNome(obj.getNome());
+        resEst.setTelefone(obj.getTelefone());
+        resEst.setEmail(obj.getEmail());
         return repo.save(resEst);
     }
 
