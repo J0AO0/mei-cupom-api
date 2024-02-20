@@ -2,11 +2,8 @@ package com.mei.vendasapi.service;
 
 import com.mei.vendasapi.domain.Categoria;
 import com.mei.vendasapi.domain.Cliente;
-import com.mei.vendasapi.domain.dto.CategoriaDTO;
-import com.mei.vendasapi.domain.dto.CategoriaNewDTO;
 import com.mei.vendasapi.domain.dto.ClienteDTO;
 import com.mei.vendasapi.domain.dto.ClienteNewDTO;
-import com.mei.vendasapi.repository.CategoriaRepository;
 import com.mei.vendasapi.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,7 +47,7 @@ public class ClienteService {
 
     public List<Cliente> lista() {
 
-        List<Cliente> buscarTodas = repo.findAllCat();
+        List<Cliente> buscarTodas = repo.findAll();
         return buscarTodas;
     }
 

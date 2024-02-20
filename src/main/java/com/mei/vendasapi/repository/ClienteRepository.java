@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     @Query(value = "SELECT * FROM cliente", nativeQuery = true)
-    List<Cliente> findAllCat();
+    List<Cliente> findAll();
 
     @Query(value = "SELECT * FROM cliente where id = ?", nativeQuery = true)
     Cliente findPorId(Integer id);
