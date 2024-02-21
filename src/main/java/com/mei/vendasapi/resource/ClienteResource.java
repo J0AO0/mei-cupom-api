@@ -22,7 +22,7 @@ import java.util.List;
 public class ClienteResource {
 
     @Autowired
-    private ClienteService clienteService;
+    private ClienteService repo;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -30,7 +30,7 @@ public class ClienteResource {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> lista() {
 
-        List<Cliente> lista =  clienteService.lista();
+        List<Cliente> lista =  repo.lista();
 
         return ResponseEntity.ok(lista);
     }
@@ -38,15 +38,15 @@ public class ClienteResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        Cliente obj = clienteService.buscarOuFalhar(id);
+        Cliente obj = repo.buscarOuFalhar(id);
         return ResponseEntity.ok(obj);
     }
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Cliente> criarCliente(@RequestBody ClienteNewDTO objNewDTO) {
+    public ResponseEntity<Cliente> criarCliente(@Valid @RequestBody ClienteNewDTO objNewDTO) {
         Cliente novoObj = modelMapper.map(objNewDTO, Cliente.class);
-        Cliente objNovo = clienteService.insert(objNewDTO);
+        Cliente objNovo = repo.insert(objNewDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{id}").buildAndExpand(objNovo.getId()).toUri();
@@ -58,7 +58,7 @@ public class ClienteResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Cliente> update(@Valid @RequestBody ClienteDTO obj, @PathVariable Integer id) {
         obj.setId(id);
-        Cliente obj1 = clienteService.atualiza(obj);
+        Cliente obj1 = repo.atualiza(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{id}").buildAndExpand(obj1.getId()).toUri();
         return ResponseEntity.created(uri).body(obj1);
@@ -68,12 +68,12 @@ public class ClienteResource {
     @RequestMapping(value="/{id}/status",method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void inativar(@RequestBody Boolean obj,@PathVariable int id)	{
-        clienteService.status(obj,id);
+        repo.status(obj,id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        clienteService.delete(id);
+        repo.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

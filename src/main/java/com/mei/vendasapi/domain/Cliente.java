@@ -25,6 +25,7 @@ public class Cliente implements Serializable{
     private String telefone;
     private String email;
     private Boolean status = Boolean.TRUE;
+    private String cpfoucnpj;
     
     @ManyToOne
     private Tenant tenant;
@@ -74,13 +75,22 @@ public class Cliente implements Serializable{
         this.nome = nome;
     }
 
-    public Cliente(Integer id, String nome, String telefone, String email, Boolean status, Tenant tenant) {
+    public String getCpfoucnpj() {
+        return cpfoucnpj;
+    }
+
+    public void setCpfoucnpj(String cpfoucnpj) {
+        this.cpfoucnpj = cpfoucnpj;
+    }
+
+    public Cliente(Integer id, String nome, String telefone, String email, Boolean status, Tenant tenant, String cpfoucnpj) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.status = status;
         this.tenant = tenant;
+        this.cpfoucnpj = cpfoucnpj;
     }
 
     public Cliente() {
@@ -92,6 +102,7 @@ public class Cliente implements Serializable{
         this.nome = obj.getNome();
         this.telefone = obj.getTelefone();
         this.email = obj.getEmail();
+        this.cpfoucnpj = obj.getCpfoucnpj();
     }
 
     public Cliente(ClienteNewDTO obj){
@@ -100,6 +111,7 @@ public class Cliente implements Serializable{
         this.telefone = obj.getTelefone();
         this.email = obj.getEmail();
         this.status = obj.getStatus();
+        this.cpfoucnpj = obj.getCpfoucnpj();
     }
 
 }
