@@ -1,11 +1,17 @@
 package com.mei.vendasapi.domain.dto;
 
+import com.mei.vendasapi.validation.cliente.ClienteInsert;
+import com.mei.vendasapi.validation.cliente.ClienteUpdate;
+
+@ClienteInsert
 public class ClienteNewDTO {
     private Integer id;
     private String nome;
     private String telefone;
     private String email;
     private Boolean status = Boolean.TRUE;
+    private String cpfoucnpj;
+
 
     public Integer getId() {
         return id;
@@ -47,11 +53,20 @@ public class ClienteNewDTO {
         this.status = status;
     }
 
-    public ClienteNewDTO(Integer id, String nome, String telefone, String email, Boolean status) {
+    public String getCpfoucnpj() {
+        return cpfoucnpj;
+    }
+
+    public void setCpfoucnpj(String cpfoucnpj) {
+        this.cpfoucnpj = cpfoucnpj;
+    }
+
+    public ClienteNewDTO(Integer id, String nome, String telefone, String email, Boolean status, String cpfoucnpj) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.status = status;
+        this.cpfoucnpj = cpfoucnpj;
     }
 }

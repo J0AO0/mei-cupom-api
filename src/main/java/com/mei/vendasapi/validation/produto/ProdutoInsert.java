@@ -1,4 +1,6 @@
-package com.mei.vendasapi.validation.cliente;
+package com.mei.vendasapi.validation.produto;
+
+import com.mei.vendasapi.validation.cliente.ClienteInsertValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -7,10 +9,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = ClienteUpdateValidator.class)
+@Constraint(validatedBy = ProdutoInsertValidator.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ClienteUpdate {
+public @interface ProdutoInsert {
     String message() default "Erro de validação";
 
     Class<?>[] groups() default {};

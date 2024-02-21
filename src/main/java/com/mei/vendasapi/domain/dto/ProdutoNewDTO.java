@@ -3,7 +3,9 @@ package com.mei.vendasapi.domain.dto;
 import java.math.BigDecimal;
 
 import com.mei.vendasapi.domain.Categoria;
+import com.mei.vendasapi.validation.produto.ProdutoInsert;
 
+@ProdutoInsert
 public class ProdutoNewDTO {
 	private Integer id;
 	private String name;

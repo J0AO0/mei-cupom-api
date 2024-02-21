@@ -1,8 +1,8 @@
-package com.mei.vendasapi.validation.cliente;
+package com.mei.vendasapi.validation.produto;
 
-import com.mei.vendasapi.domain.Cliente;
-import com.mei.vendasapi.domain.dto.ClienteDTO;
-import com.mei.vendasapi.repository.ClienteRepository;
+import com.mei.vendasapi.domain.Produto;
+import com.mei.vendasapi.domain.dto.ProdutoDTO;
+import com.mei.vendasapi.repository.ProdutoRepository;
 import com.mei.vendasapi.resource.exception.FieldMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,21 +11,21 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
+public class ProdutoUpdateValidator implements ConstraintValidator<ProdutoUpdate, ProdutoDTO> {
     @Autowired
-    private ClienteRepository repo;
+    private ProdutoRepository repo;
     @Override
-    public void initialize(ClienteUpdate ann){
+    public void initialize(ProdutoUpdate ann){
 
     }
 
     @Override
-    public boolean isValid(ClienteDTO value, ConstraintValidatorContext context) {
+    public boolean isValid(ProdutoDTO value, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        Cliente cat = repo.findByCpfoucnpj(value.getCpfoucnpj());
+        Produto cat = repo.findByName(value.getName());
         if (cat != null) {
-            list.add(new FieldMessage("cpfoucnpj", " Cliente já existente "));
+            list.add(new FieldMessage("name", " Produto já existente "));
         }
 
         for (FieldMessage e : list) {

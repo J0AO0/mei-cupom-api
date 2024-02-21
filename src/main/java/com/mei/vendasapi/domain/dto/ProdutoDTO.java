@@ -1,10 +1,12 @@
 package com.mei.vendasapi.domain.dto;
 
 import com.mei.vendasapi.domain.Categoria;
+import com.mei.vendasapi.validation.produto.ProdutoUpdate;
 
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
+@ProdutoUpdate
 public class ProdutoDTO {
     private Integer id;
     private String name;
