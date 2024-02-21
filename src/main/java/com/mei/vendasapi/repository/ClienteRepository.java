@@ -14,4 +14,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     @Query(value = "SELECT * FROM cliente where id = ?", nativeQuery = true)
     Cliente findPorId(Integer id);
+
+    Cliente findByCpfoucnpj(String cpfoucnpj);
 }

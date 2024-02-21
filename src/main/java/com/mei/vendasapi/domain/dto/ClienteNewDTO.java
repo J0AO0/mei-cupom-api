@@ -1,5 +1,9 @@
 package com.mei.vendasapi.domain.dto;
 
+import com.mei.vendasapi.validation.cliente.ClienteInsert;
+import com.mei.vendasapi.validation.cliente.ClienteUpdate;
+
+@ClienteInsert
 public class ClienteNewDTO {
     private Integer id;
     private String nome;
