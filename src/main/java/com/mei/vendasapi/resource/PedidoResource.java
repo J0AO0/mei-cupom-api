@@ -38,7 +38,7 @@ public class PedidoResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        Pedido obj = pedidoService.findPorId(id);
+        Pedido obj = pedidoService.buscarOuFalhar(id);
         return ResponseEntity.ok(obj);
     }
 
