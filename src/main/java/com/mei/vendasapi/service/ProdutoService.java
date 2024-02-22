@@ -4,16 +4,21 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mei.vendasapi.domain.Categoria;
+import com.mei.vendasapi.domain.Cliente;
+import com.mei.vendasapi.domain.Pedido;
 import com.mei.vendasapi.domain.Produto;
 import com.mei.vendasapi.domain.dto.ProdutoDTO;
 import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
 import com.mei.vendasapi.repository.ProdutoRepository;
+import com.mei.vendasapi.service.exception.EntidadeEmUsoException;
 import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 
 @Service
@@ -44,17 +49,26 @@ public class ProdutoService {
     }
 
     public Produto atualiza(ProdutoDTO obj) {
-        Produto resEst =  repo.findPorId(obj.getId());
-        resEst.setCategoria(obj.getCategoria());
-        resEst.setDescricao(obj.getDescricao());
-        resEst.setName(obj.getName());
-        resEst.setPreco(obj.getPreco());
-        resEst.setQrCode(obj.getQrCode());
-        return repo.save(resEst);
-    }
+        try {
+        	Produto resEst =  repo.findPorId(obj.getId());
+    			
+            BeanUtils.copyProperties(obj, resEst, "id");
+            return repo.save(resEst);
+    		} catch (DataIntegrityViolationException e) {
+    			throw new EntidadeNaoEncontradaExcepition(String.format("Categoria não encontrado", obj.getId()));
+    		}
+        }
 
     public void delete (Integer id) {
-        repo.deleteById(id);
+    	try {
+			if(!repo.existsById(id)) {
+				throw new EntidadeNaoEncontradaExcepition(String.format("Produto não encontrado", id));
+			}
+			repo.deleteById(id);
+    		
+		} catch (DataIntegrityViolationException e) {
+		throw new EntidadeEmUsoException(String.format("Produto não pode ser deletado", id));
+		}
     }
 
     public List<Produto> lista() {
@@ -65,7 +79,7 @@ public class ProdutoService {
 
     public Produto buscarOuFalhar(int id) {
         return repo.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Produto  não encontrada", id)));
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Produto  não encontrado", id)));
     }
 
     @Transactional

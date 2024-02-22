@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 
 @Entity
 public class Produto implements Serializable {
@@ -123,17 +124,16 @@ public class Produto implements Serializable {
 		super();
 	}
 
-	public Produto(ProdutoDTO obj){
+	public Produto(@Valid ProdutoDTO obj){
 		this.id = obj.getId();
 		this.name = obj.getName();
 		this.categoria = obj.getCategoria();
 		this.preco = obj.getPreco();
 		this.descricao = obj.getDescricao();
-		this.status = obj.getStatus();
 		this.qrCode = obj.getQrCode();
 	}
 
-	public Produto(ProdutoNewDTO obj){
+	public Produto(@Valid ProdutoNewDTO obj){
 		this.id = obj.getId();
 		this.name = obj.getName();
 		this.categoria = obj.getCategoria();

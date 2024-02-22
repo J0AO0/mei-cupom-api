@@ -38,13 +38,13 @@ public class ProdutoResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        Produto obj = produtoService.findPorId(id);
+        Produto obj = produtoService.buscarOuFalhar(id);
         return ResponseEntity.ok(obj);
     }
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Produto> criarProduto(@RequestBody ProdutoNewDTO objNewDTO) {
+    public ResponseEntity<Produto> criarProduto(@Valid @RequestBody ProdutoNewDTO objNewDTO) {
         Produto novoObj = modelMapper.map(objNewDTO, Produto.class);
         Produto objNovo = produtoService.insert(objNewDTO);
 
