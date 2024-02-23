@@ -15,5 +15,7 @@ public interface EstoqueRepository extends JpaRepository<Estoque, Integer> {
 
     @Query(value = "SELECT * FROM estoque where id = ?", nativeQuery = true)
     Estoque findPorId(Integer id);
+
+    Estoque findByNome(String nome);
 }
 

@@ -391,6 +391,7 @@ create table cliente (id integer not null auto_increment, cpfoucnpj varchar(255)
 create table empresa (id integer not null auto_increment, bairro varchar(255), cep varchar(255), cidade varchar(255), complemento varchar(255), cpfoucnpj varchar(255), editar bit, email varchar(255), logradouro varchar(255), naturezapessoa varchar(255), nomecontato varchar(255), numero varchar(255), razaosocial varchar(255), status bit, telefone varchar(255), uf varchar(255), valor decimal(19,2), whats varchar(255), tenant_id integer, primary key (id)) engine=InnoDB
 create table estoque (id integer not null auto_increment, nome varchar(255), quantidade_estoque double precision, status bit, produto_id integer, primary key (id)) engine=InnoDB
 create table item (quantidade integer, status bit, pedido_id integer not null, produto_id integer not null, tenant_id integer, primary key (pedido_id, produto_id)) engine=InnoDB
+<<<<<<< HEAD
 create table pedido (id integer not null auto_increment, cliente_id integer, tenant_id integer, primary key (id)) engine=InnoDB
 create table permissao (id integer not null auto_increment, descricao varchar(255), classepermissao_id integer, primary key (id)) engine=InnoDB
 create table produto (id integer not null auto_increment, descricao varchar(255), name varchar(255), preco decimal(19,2), qr_code varchar(255), status bit, categoria_id integer, tenant_id integer, primary key (id)) engine=InnoDB
@@ -545,6 +546,13 @@ create table pedido (id integer not null auto_increment, cliente_id integer, ten
 create table permissao (id integer not null auto_increment, descricao varchar(255), classepermissao_id integer, primary key (id)) engine=InnoDB
 create table produto (id integer not null auto_increment, descricao varchar(255), name varchar(255), preco decimal(19,2), qr_code varchar(255), status bit, categoria_id integer, tenant_id integer, primary key (id)) engine=InnoDB
 create table tenant (id integer not null auto_increment, descricao varchar(255), primary key (id)) engine=InnoDB
+=======
+create table pedido (id integer not null auto_increment, cliente_id integer, tenant_id integer, tipo_pedido_id integer, primary key (id)) engine=InnoDB
+create table permissao (id integer not null auto_increment, descricao varchar(255), classepermissao_id integer, primary key (id)) engine=InnoDB
+create table produto (id integer not null auto_increment, descricao varchar(255), name varchar(255), preco decimal(19,2), qr_code varchar(255), status bit, categoria_id integer, tenant_id integer, primary key (id)) engine=InnoDB
+create table tenant (id integer not null auto_increment, descricao varchar(255), primary key (id)) engine=InnoDB
+create table tipo_pedido (id integer not null auto_increment, nome varchar(255), primary key (id)) engine=InnoDB
+>>>>>>> 1de1955378711264f213a8926a821f3601ed145c
 create table usuario (id integer not null auto_increment, email varchar(255), gtenantativo integer, login varchar(255), nome varchar(255), senha varchar(255), status bit, telefone varchar(255), tenantativo integer, primary key (id)) engine=InnoDB
 create table usuario_permissao (id_usuario integer not null, id_permissao integer not null) engine=InnoDB
 create table usuario_empresa (empresapadrao bit, tenant_id integer, id_empresa integer not null, id_usuario integer not null, primary key (id_empresa, id_usuario)) engine=InnoDB
@@ -558,6 +566,10 @@ alter table item add constraint FKoya2x5ip1q2t3s0936vgjiyx9 foreign key (produto
 alter table item add constraint FKdrkgx9furxyv09fpsfv4wag4o foreign key (tenant_id) references tenant (id)
 alter table pedido add constraint FK30s8j2ktpay6of18lbyqn3632 foreign key (cliente_id) references cliente (id)
 alter table pedido add constraint FK180dwib6bmjcexaokknove0mr foreign key (tenant_id) references tenant (id)
+<<<<<<< HEAD
+=======
+alter table pedido add constraint FKkyrm947nmm29rpuibku5iihp6 foreign key (tipo_pedido_id) references tipo_pedido (id)
+>>>>>>> 1de1955378711264f213a8926a821f3601ed145c
 alter table permissao add constraint FKdiyasfskbnh46lmx2ywloji0d foreign key (classepermissao_id) references classepermissao (id)
 alter table produto add constraint FKopu9jggwnamfv0c8k2ri3kx0a foreign key (categoria_id) references categoria (id)
 alter table produto add constraint FK9lpb3f1r5xbcc0fcex0ubs0i6 foreign key (tenant_id) references tenant (id)
