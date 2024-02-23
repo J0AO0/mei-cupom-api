@@ -38,12 +38,13 @@ public class EstoqueService {
         Estoque resEst = new Estoque(obj);
         resEst.setNome(obj.getNome());
         resEst.setQuantidadeEstoque(obj.getQuantidadeEstoque());
+        resEst.setStatus(obj.getStatus());
         Produto p = obj.getProduto();
         resEst.setProduto(p);
         return repo.save(resEst);
     }
 
-    public Estoque atualiza(EstoqueDTO obj) {
+    public Estoque atualiza(Estoque obj) {
         Estoque resEst =  repo.findPorId(obj.getId());
         BeanUtils.copyProperties(obj, resEst, "id");
         return repo.save(resEst);

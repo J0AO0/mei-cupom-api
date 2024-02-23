@@ -7,7 +7,7 @@ public class EstoqueNewDTO {
 	private String nome;
 	private Double quantidadeEstoque;
 	private Produto produto;
-	private Boolean status;
+	private Boolean status =  Boolean.TRUE;
 
 	public Integer getId() {
 		return id;
