@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estoque")
+@RequestMapping("/estoques")
 public class EstoqueResource {
     @Autowired
     private EstoqueService estoqueService;

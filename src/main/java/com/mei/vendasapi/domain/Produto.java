@@ -35,9 +35,7 @@ public class Produto implements Serializable {
 
 	private String qrCode;
 
-	@ManyToOne
-	@JoinColumn(name = "estoque_id")
-	private Estoque estoque;
+	
     
     @ManyToOne
     private Tenant tenant;
