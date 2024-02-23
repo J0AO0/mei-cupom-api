@@ -1,7 +1,5 @@
 package com.mei.vendasapi.domain;
 
-import com.mei.vendasapi.domain.dto.ClienteDTO;
-import com.mei.vendasapi.domain.dto.ClienteNewDTO;
 import com.mei.vendasapi.domain.dto.ItemDTO;
 import com.mei.vendasapi.domain.dto.ItemNewDTO;
 

@@ -22,10 +22,9 @@ public class Pedido implements Serializable{
     private Integer id;
     @ManyToOne
     private Cliente cliente;
-    
     @ManyToOne
     private Tenant tenant;
-    
+
     public Integer getId() {
         return id;
     }
@@ -63,5 +62,5 @@ public class Pedido implements Serializable{
         this.id = obj.getId();
         this.cliente = obj.getCliente();
     }
-    
+
 }

@@ -8,13 +8,7 @@ import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 
 @Entity
@@ -40,6 +34,10 @@ public class Produto implements Serializable {
     private Boolean status;
 
 	private String qrCode;
+
+	@ManyToOne
+	@JoinColumn(name = "estoque_id")
+	private Estoque estoque;
     
     @ManyToOne
     private Tenant tenant;
