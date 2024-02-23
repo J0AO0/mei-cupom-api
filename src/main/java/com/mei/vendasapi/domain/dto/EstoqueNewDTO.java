@@ -1,7 +1,9 @@
 package com.mei.vendasapi.domain.dto;
 
 import com.mei.vendasapi.domain.Produto;
+import com.mei.vendasapi.validation.estoque.EstoqueInsert;
 
+@EstoqueInsert
 public class EstoqueNewDTO {
 	private Integer id;
 	private String nome;

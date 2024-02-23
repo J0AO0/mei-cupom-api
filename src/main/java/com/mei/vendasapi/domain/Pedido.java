@@ -23,6 +23,8 @@ public class Pedido implements Serializable{
     @ManyToOne
     private Cliente cliente;
     @ManyToOne
+    private TipoPedido tipoPedido;
+    @ManyToOne
     private Tenant tenant;
 
     public Integer getId() {
@@ -31,11 +33,12 @@ public class Pedido implements Serializable{
     public Pedido() {
         super();
     }
-    public Pedido(Integer id, Cliente cliente, Tenant tenant) {
+    public Pedido(Integer id, Cliente cliente, Tenant tenant, TipoPedido tipoPedido) {
         super();
         this.id = id;
         this.cliente = cliente;
         this.tenant = tenant;
+        this.tipoPedido = tipoPedido;
     }
     public void setId(Integer id) {
         this.id = id;
@@ -52,6 +55,14 @@ public class Pedido implements Serializable{
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
 	}
+
+    public TipoPedido getTipoPedido() {
+        return tipoPedido;
+    }
+
+    public void setTipoPedido(TipoPedido tipoPedido) {
+        this.tipoPedido = tipoPedido;
+    }
 
     public Pedido(PedidoDTO obj){
         this.id = obj.getId();
