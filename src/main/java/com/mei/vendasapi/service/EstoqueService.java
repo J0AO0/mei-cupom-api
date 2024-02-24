@@ -1,12 +1,9 @@
 package com.mei.vendasapi.service;
 
-import com.mei.vendasapi.domain.Estoque;
-import com.mei.vendasapi.domain.Estoque;
-import com.mei.vendasapi.domain.dto.EstoqueDTO;
-import com.mei.vendasapi.domain.dto.EstoqueNewDTO;
-import com.mei.vendasapi.repository.EstoqueRepository;
-import com.mei.vendasapi.repository.EstoqueRepository;
-import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,8 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
+import com.mei.vendasapi.domain.Estoque;
+import com.mei.vendasapi.domain.Produto;
+import com.mei.vendasapi.domain.dto.EstoqueDTO;
+import com.mei.vendasapi.domain.dto.EstoqueNewDTO;
+import com.mei.vendasapi.repository.EstoqueRepository;
+import com.mei.vendasapi.service.exception.EntidadeNaoEncontradaExcepition;
 
 @Service
 public class EstoqueService {
@@ -34,12 +35,16 @@ public class EstoqueService {
     @Transactional
     public Estoque insert(EstoqueNewDTO obj){
         obj.setId(null);
-        Estoque resEst = new Estoque();
+        Estoque resEst = new Estoque(obj);
         resEst.setNome(obj.getNome());
+        resEst.setQuantidadeEstoque(obj.getQuantidadeEstoque());
+        resEst.setStatus(obj.getStatus());
+        Produto p = obj.getProduto();
+        resEst.setProduto(p);
         return repo.save(resEst);
     }
 
-    public Estoque atualiza(EstoqueDTO obj) {
+    public Estoque atualiza(Estoque obj) {
         Estoque resEst =  repo.findPorId(obj.getId());
         BeanUtils.copyProperties(obj, resEst, "id");
         return repo.save(resEst);
@@ -66,8 +71,8 @@ public class EstoqueService {
 
     @Transactional
     public void status(Boolean obj, int id) {
-        Estoque cliente = buscarOuFalhar(id);
-        cliente.setStatus(obj);
+        Estoque estoque = buscarOuFalhar(id);
+        estoque.setStatus(obj);
 
     }
 }
