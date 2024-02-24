@@ -1,5 +1,6 @@
 package com.mei.vendasapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mei.vendasapi.domain.dto.PedidoDTO;
 import com.mei.vendasapi.domain.dto.PedidoNewDTO;
 import com.mei.vendasapi.domain.dto.ProdutoDTO;
@@ -7,6 +8,8 @@ import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -140,6 +143,63 @@ public class Produto implements Serializable {
 		this.status = obj.getStatus();
 		this.qrCode = obj.getQrCode();
 	}
-    
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", descricao=" + descricao + ", status=" + status + "]";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "produto")
+	private List<LogSistema> logs = new ArrayList<LogSistema>();
+
+	public void addLogs(LogSistema log) {
+		logs.add(log);
+	}
+
+	public LogSistema getLogs() {
+		Integer codigo = 0;
+		Integer indice = -1;
+		LogSistema ultimo = new LogSistema();
+		for (int i = 0; i < logs.size(); i++) {
+			if (codigo < logs.get(i).getId()) {
+				codigo = logs.get(i).getId();
+				indice = i;
+			}
+		}
+		if (indice==-1) {
+			return ultimo;
+		}else {
+			return ultimo = logs.get(indice);
+		}
+
+	}
+
+	public void setLogs(List<LogSistema> logs) {
+		this.logs = logs;
+	}
 
 }

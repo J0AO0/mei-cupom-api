@@ -185,7 +185,7 @@ public class Usuario implements Serializable {
                 case "Paciente":classePermissaoFlatPaciente(pf);break;
                 case "Usuario":classePermissaoFlatUsuario(pf);	break;
                 case "Relatório":classePermissaoFlatRelatorio(pf);break;
-                case "Empresa":classePermissaoFlatEmpresa(pf);	break;
+                case "EmpresaFlat":classePermissaoFlatEmpresa(pf);	break;
                 case "Patrimônio":classePermissaoFlatPatrimonio(pf);break;
             }
 

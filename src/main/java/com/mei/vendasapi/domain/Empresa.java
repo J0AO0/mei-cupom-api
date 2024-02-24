@@ -1,5 +1,6 @@
 package com.mei.vendasapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mei.vendasapi.domain.dto.ClienteDTO;
 import com.mei.vendasapi.domain.dto.ClienteNewDTO;
 import com.mei.vendasapi.domain.dto.EmpresaDTO;
@@ -9,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Empresa implements Serializable {
@@ -220,28 +223,28 @@ public class Empresa implements Serializable {
 
     }
 
-    //    public Empresa(@Valid EmpresaNew obj) {
-//        this.id = null;
-//        this.cidade = obj.getCidade();
-//        this.razaosocial = obj.getRazaosocial();
-//        this.cpfoucnpj = obj.getCpfoucnpj();
-//        this.naturezapessoa = obj.getNaturezapessoa();
-//        this.uf = obj.getUf();
-//        this.valor = obj.getValor();
-//        this.cep = obj.getCep();
-//        this.logradouro = obj.getLogradouro();
-//        this.numero = obj.getNumero();
-//        this.complemento = obj.getComplemento();
-//        this.bairro = obj.getBairro();
-//        this.nomecontato = obj.getNomecontato();
-//        this.telefone = obj.getTelefone();
-//        this.whats = obj.getWhats();
-//        this.email = obj.getEmail();
-//        this.status = obj.getStatus();
-//    }
+        public Empresa(@Valid EmpresaNew obj) {
+        this.id = null;
+        this.cidade = obj.getCidade();
+        this.razaosocial = obj.getRazaosocial();
+        this.cpfoucnpj = obj.getCpfoucnpj();
+        this.naturezapessoa = obj.getNaturezapessoa();
+        this.uf = obj.getUf();
+        this.valor = obj.getValor();
+        this.cep = obj.getCep();
+        this.logradouro = obj.getLogradouro();
+        this.numero = obj.getNumero();
+        this.complemento = obj.getComplemento();
+        this.bairro = obj.getBairro();
+        this.nomecontato = obj.getNomecontato();
+        this.telefone = obj.getTelefone();
+        this.whats = obj.getWhats();
+        this.email = obj.getEmail();
+        this.status = obj.getStatus();
+    }
     @Override
     public String toString() {
-        return "Empresa [id=" + id + ", cidade=" + cidade + ", razao=" + razaosocial + ", cpfOuCnpj=" + cpfoucnpj
+        return "EmpresaFlat [id=" + id + ", cidade=" + cidade + ", razao=" + razaosocial + ", cpfOuCnpj=" + cpfoucnpj
                 + ", naturezaPessoa=" + naturezapessoa + ", uf=" + uf + ", cep=" + cep + ", logradouro=" + logradouro
                 + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", nomecontato="
                 + nomecontato + ", telefone=" + telefone + ", whats=" + whats + ", email=" + email + ", status="
@@ -286,5 +289,35 @@ public class Empresa implements Serializable {
         this.nomecontato = obj.getNomecontato();
         this.numero = obj.getNumero();
         this.complemento = obj.getComplemento();
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "empresa")
+    private List<LogSistema> logs = new ArrayList<LogSistema>();
+
+    public void addLogs(LogSistema log) {
+        logs.add(log);
+    }
+
+    public LogSistema getLogs() {
+        Integer codigo = 0;
+        Integer indice = -1;
+        LogSistema ultimo = new LogSistema();
+        for (int i = 0; i < logs.size(); i++) {
+            if (codigo < logs.get(i).getId()) {
+                codigo = logs.get(i).getId();
+                indice = i;
+            }
+        }
+        if (indice==-1) {
+            return ultimo;
+        }else {
+            return ultimo = logs.get(indice);
+        }
+
+    }
+
+    public void setLogs(List<LogSistema> logs) {
+        this.logs = logs;
     }
 }

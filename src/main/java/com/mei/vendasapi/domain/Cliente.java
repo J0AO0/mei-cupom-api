@@ -1,17 +1,16 @@
 package com.mei.vendasapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mei.vendasapi.domain.dto.CategoriaDTO;
 import com.mei.vendasapi.domain.dto.CategoriaNewDTO;
 import com.mei.vendasapi.domain.dto.ClienteDTO;
 import com.mei.vendasapi.domain.dto.ClienteNewDTO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Cliente implements Serializable{
@@ -112,6 +111,64 @@ public class Cliente implements Serializable{
         this.email = obj.getEmail();
         this.status = obj.getStatus();
         this.cpfoucnpj = obj.getCpfoucnpj();
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente [id=" + id + ", nome=" + nome + ", status=" + status + "]";
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Cliente other = (Cliente) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente")
+    private List<LogSistema> logs = new ArrayList<LogSistema>();
+
+    public void addLogs(LogSistema log) {
+        logs.add(log);
+    }
+
+    public LogSistema getLogs() {
+        Integer codigo = 0;
+        Integer indice = -1;
+        LogSistema ultimo = new LogSistema();
+        for (int i = 0; i < logs.size(); i++) {
+            if (codigo < logs.get(i).getId()) {
+                codigo = logs.get(i).getId();
+                indice = i;
+            }
+        }
+        if (indice==-1) {
+            return ultimo;
+        }else {
+            return ultimo = logs.get(indice);
+        }
+
+    }
+
+    public void setLogs(List<LogSistema> logs) {
+        this.logs = logs;
     }
 
 }

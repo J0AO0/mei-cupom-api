@@ -1,17 +1,16 @@
 package com.mei.vendasapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mei.vendasapi.domain.dto.ItemDTO;
 import com.mei.vendasapi.domain.dto.ItemNewDTO;
 import com.mei.vendasapi.domain.dto.PedidoDTO;
 import com.mei.vendasapi.domain.dto.PedidoNewDTO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Pedido implements Serializable{
@@ -61,6 +60,36 @@ public class Pedido implements Serializable{
     public Pedido(PedidoNewDTO obj){
         this.id = obj.getId();
         this.cliente = obj.getCliente();
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "pedido")
+    private List<LogSistema> logs = new ArrayList<LogSistema>();
+
+    public void addLogs(LogSistema log) {
+        logs.add(log);
+    }
+
+    public LogSistema getLogs() {
+        Integer codigo = 0;
+        Integer indice = -1;
+        LogSistema ultimo = new LogSistema();
+        for (int i = 0; i < logs.size(); i++) {
+            if (codigo < logs.get(i).getId()) {
+                codigo = logs.get(i).getId();
+                indice = i;
+            }
+        }
+        if (indice==-1) {
+            return ultimo;
+        }else {
+            return ultimo = logs.get(indice);
+        }
+
+    }
+
+    public void setLogs(List<LogSistema> logs) {
+        this.logs = logs;
     }
 
 }

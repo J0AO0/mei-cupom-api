@@ -74,7 +74,7 @@ public class EmpresaService {
 
     public Empresa buscarOuFalhar(int id) {
         return repo.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("Empresa  não encontrada", id)));
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcepition(String.format("EmpresaFlat  não encontrada", id)));
     }
 
     @Transactional
