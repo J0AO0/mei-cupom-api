@@ -5,9 +5,14 @@ import com.mei.vendasapi.domain.Produto;
 import com.mei.vendasapi.domain.dto.ProdutoDTO;
 import com.mei.vendasapi.domain.dto.ProdutoDTO;
 import com.mei.vendasapi.domain.dto.ProdutoNewDTO;
+import com.mei.vendasapi.domain.dto.flat.ProdutoFlat;
+import com.mei.vendasapi.repository.ProdutoRepository;
+import com.mei.vendasapi.repository.filter.ProdutoFilter;
 import com.mei.vendasapi.service.ProdutoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +31,9 @@ public class ProdutoResource {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ProdutoRepository produtoRepo;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> lista() {
@@ -75,6 +83,14 @@ public class ProdutoResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         produtoService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/filtro", method = RequestMethod.GET)
+    public Page<ProdutoFlat> findAllPag(ProdutoFilter produtoFilter, Pageable pageable) {
+        Page<Produto> prods = produtoRepo.filtrar(produtoFilter, pageable);
+        Page<ProdutoFlat> prodsflat = produtoService.mudarProdutoParaFlat(prods);
+        return prodsflat;
+
     }
 
 }
