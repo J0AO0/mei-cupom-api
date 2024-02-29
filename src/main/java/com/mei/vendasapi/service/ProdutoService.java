@@ -1,13 +1,16 @@
 package com.mei.vendasapi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.mei.vendasapi.domain.dto.flat.ProdutoFlat;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -87,5 +90,18 @@ public class ProdutoService {
         Produto produto = buscarOuFalhar(id);
         produto.setStatus(obj);
 
+    }
+
+    public Page<ProdutoFlat> mudarProdutoParaFlat(Page<Produto> pacs) {
+        List<ProdutoFlat> cFlats = new ArrayList<ProdutoFlat>();
+        for (Produto p : pacs.getContent()) {
+            ProdutoFlat cFlat = new ProdutoFlat(p);
+            cFlats.add(cFlat);
+
+        }
+        Page<ProdutoFlat> page = new PageImpl<>(cFlats, pacs.getPageable(),
+                pacs.getTotalElements());
+
+        return page;
     }
 }
