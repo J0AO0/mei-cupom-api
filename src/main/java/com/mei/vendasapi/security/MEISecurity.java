@@ -1,15 +1,13 @@
 package com.mei.vendasapi.security;
 
 
-
-//TODO
-//COLOCAR SEGURANÇA PARA O FILTRO E O PROJETO PODEREM FUNCIONAR CORRETAMENTE
-
 import com.mei.vendasapi.domain.Usuario;
 import com.mei.vendasapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
